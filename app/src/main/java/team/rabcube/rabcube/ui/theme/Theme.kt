@@ -5,6 +5,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import team.rabcube.rabcube.R
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -26,6 +30,9 @@ private val LightColorPalette = lightColors(
     onSurface = Color.Black,
     */
 )
+
+var primaryFont =
+    FontFamily(Font(R.font.roboto_regular), Font(R.font.roboto_bold, FontWeight.Bold))
 
 @Composable
 fun RabCubeTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
