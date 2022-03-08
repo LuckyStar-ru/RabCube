@@ -5,15 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Slider
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,7 +22,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import team.rabcube.rabcube.presantation.Dialog
 import team.rabcube.rabcube.presantation.DialogViewModel
-import team.rabcube.rabcube.ui.theme.*
+import team.rabcube.rabcube.ui.theme.Background
+import team.rabcube.rabcube.ui.theme.RabCubeTheme
+import team.rabcube.rabcube.ui.theme.primaryFont
 
 class MainActivity : ComponentActivity() {
 
@@ -34,62 +35,44 @@ class MainActivity : ComponentActivity() {
             RabCubeTheme {
                 val viewModel = viewModel<DialogViewModel>()
                 Column {
-                    Head {
-                        TopAppBar(
-                            backgroundColor = Secondary
-                        ) {
-                            ExitSlider()
-                            Text(
-                                "RabCube",
-                                fontFamily = primaryFont,
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.End,
-                                color = Color.White,
-                                fontSize = 23.sp,
-                                modifier = Modifier.fillMaxWidth(0.8f)
-                            )
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                                contentDescription = "Аватарка"
-                            )
-                        }
-                    }
+                    Head()
                     Dialog(
                         viewModel = viewModel,
-                        modifier = Modifier.background(BackgroundColor)
-                    ) {
-                        Text(
-                            "•",
-                            fontSize = 20.sp,
-                            fontFamily = primaryFont,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .padding(35.dp)
-                                .background(Primary, RoundedCornerShape(17))
-                                .border(2.dp, Secondary, RoundedCornerShape(17))
-                                .padding(10.dp)
-                                .clickable {
-                                    viewModel.addUserMessage("123123")
-                                    viewModel.addAssistantMessage("321321")
-                                }
-                        )
-                    }
+                        modifier = Modifier.background(Background)
+                    )
                 }
             }
         }
     }
 
     @Composable
-    fun Head(content: @Composable () -> Unit) {
-        Column {
-            Box(
+    fun Head() {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFF464646))
+                .padding(top = 6.dp)
+        ) {
+            ExitSlider()
+            Text(
+                "RabCube",
+                fontFamily = primaryFont,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.End,
+                color = Color.White,
+                fontSize = 23.sp,
                 modifier = Modifier
-                    .background(HeadContainer)
-                    .padding(top = 34.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(0.8f)
+                    .align(Alignment.CenterVertically)
             )
-
-            content()
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "Аватарка",
+                modifier = Modifier
+                    .padding(start = 10.dp)
+                    .clip(CircleShape)
+                    .size(45.dp)
+            )
         }
     }
 
