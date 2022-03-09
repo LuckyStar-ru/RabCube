@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 
 data class DialogUiState(
     val _messages: MutableList<Message> = mutableStateListOf(
-        Message.Assistant("Нажмите на кнопку для настройки приложения!")
+        Message.Assistant("Введите \"Модули\", чтобы увидеть текущие подключенные модули и ключевые слова.")
     )
 ) {
 

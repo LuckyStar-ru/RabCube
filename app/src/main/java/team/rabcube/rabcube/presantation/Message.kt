@@ -18,21 +18,22 @@ import team.rabcube.rabcube.ui.theme.primaryFont
 sealed class Message(val text: String) {
 
     @Composable
-    abstract fun Text()
+    abstract fun Text(modifier: Modifier)
 
     class Human(msg: String) : Message(msg) {
         @Composable
-        override fun Text() {
+        override fun Text(modifier: Modifier) {
             var isBig by remember { mutableStateOf(false) }
             val textSize by animateFloatAsState(if (!isBig) 17.sp.value else 24.sp.value)
             Text(
                 text,
                 fontSize = textSize.sp,
+                color = Color.White,
                 fontFamily = primaryFont,
                 textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .padding(start = 55.dp, 35.dp, 5.dp, 15.dp)
-                    .background(Color.White, RoundedCornerShape(17))
+                modifier = modifier
+                    .padding(start = 20.dp, 35.dp, 5.dp, 15.dp)
+                    .background(Color(0xFF681EB1), RoundedCornerShape(17))
                     .border(2.dp, Color.Gray, RoundedCornerShape(17))
                     .padding(10.dp)
                     .clickable {
@@ -44,7 +45,7 @@ sealed class Message(val text: String) {
 
     class Assistant(msg: String) : Message(msg) {
         @Composable
-        override fun Text() {
+        override fun Text(modifier: Modifier) {
             var isBig by remember { mutableStateOf(false) }
             val textSize by animateFloatAsState(if (!isBig) 17.sp.value else 24.sp.value)
             Text(
@@ -52,7 +53,7 @@ sealed class Message(val text: String) {
                 fontSize = textSize.sp,
                 fontFamily = primaryFont,
                 textAlign = TextAlign.Start,
-                modifier = Modifier
+                modifier = modifier
                     .padding(start = 55.dp, 35.dp, 5.dp, 25.dp)
                     .background(Color(0xFF585858), RoundedCornerShape(17))
                     .padding(10.dp)

@@ -10,7 +10,7 @@ class TimeModule : Module() {
     private val format = SimpleDateFormat("HH:mm", Locale.ROOT)
 
     override fun getModuleKeywords(): List<String> {
-        return listOf("время", "час", "минут", "дата")
+        return listOf("врем", "который час")
     }
 
     override fun checkContext(command: Command): Boolean {
@@ -18,10 +18,6 @@ class TimeModule : Module() {
     }
 
     override fun executeCommand(command: Command): Answer {
-        var answer = Answer("Мы пока не может дать ответ на этот вопрос.")
-        if (command.text.contains("сколько врем") || command.text.contains("который час")) {
-            answer = Answer("Время: ${format.format(Date())}")
-        }
-        return answer
+        return Answer("Время: ${format.format(Date())}")
     }
 }
