@@ -20,28 +20,6 @@ sealed class Message(val text: String) {
     @Composable
     abstract fun Text()
 
-    class System(msg: String, private val buttonText: String? = null, private val image: Int? = null) : Message(msg) {
-        @Composable
-        override fun Text() {
-            var isBig by remember { mutableStateOf(false) }
-            val textSize by animateFloatAsState(if (!isBig) 17.sp.value else 24.sp.value)
-            Text(
-                text,
-                fontSize = textSize.sp,
-                fontFamily = primaryFont,
-                textAlign = TextAlign.Start,
-                modifier = Modifier
-                    .padding(start = 55.dp, 35.dp, 5.dp, 15.dp)
-                    .background(Color.Yellow, RoundedCornerShape(17))
-                    .border(2.dp, Color.Gray, RoundedCornerShape(17))
-                    .padding(10.dp)
-                    .clickable {
-                        isBig = !isBig
-                    }
-            )
-        }
-    }
-
     class Human(msg: String) : Message(msg) {
         @Composable
         override fun Text() {
@@ -75,9 +53,8 @@ sealed class Message(val text: String) {
                 fontFamily = primaryFont,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(start = 55.dp, 35.dp, 5.dp, 15.dp)
-                    .background(Color.Yellow, RoundedCornerShape(17))
-                    .border(2.dp, Color.Gray, RoundedCornerShape(17))
+                    .padding(start = 55.dp, 35.dp, 5.dp, 25.dp)
+                    .background(Color(0xFF585858), RoundedCornerShape(17))
                     .padding(10.dp)
                     .clickable {
                         isBig = !isBig

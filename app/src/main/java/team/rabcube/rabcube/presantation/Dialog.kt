@@ -11,9 +11,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import team.rabcube.rabcube.exstensions.ShadowPadding
 import team.rabcube.rabcube.exstensions.coloredShadow
 
 @Composable
@@ -28,7 +30,6 @@ fun Dialog(
         verticalArrangement = Arrangement.Top,
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF2D2C2C))
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.Bottom,
@@ -41,12 +42,15 @@ fun Dialog(
                 it.Text()
             }
         }
-        InputMessage()
+        Row {
+            InputField()
+            InputButton()
+        }
     }
 }
 
 @Composable
-fun InputMessage() {
+fun InputField() {
     var input by remember { mutableStateOf("") }
     BasicTextField(
         value = input,
@@ -57,7 +61,8 @@ fun InputMessage() {
         modifier = Modifier
             .padding(start = 15.dp, bottom = 12.dp, end = 11.dp)
             .coloredShadow(
-                Color(0xFFC02BF7)
+                Color(0xFFC02BF7),
+                padding = ShadowPadding(-7f)
             )
             .background(Color(0xFF535353), RoundedCornerShape(17))
             .border(
@@ -70,19 +75,15 @@ fun InputMessage() {
             .width(230.dp)
             .height(90.dp)
     )
-//    (
-//        "•",
-//        fontSize = 20.sp,
-//        fontFamily = primaryFont,
-//        textAlign = TextAlign.Center,
-//        modifier = Modifier
-//            .padding(35.dp)
-//            .background(Primary, RoundedCornerShape(17))
-//            .border(2.dp, Secondary, RoundedCornerShape(17))
-//            .padding(10.dp)
-//            .clickable {
-//                viewModel.addUserMessage("123123")
-//                viewModel.addAssistantMessage("321321")
-//            }
-//    )
+}
+
+@Composable
+fun InputButton() {
+    Box(
+        modifier = Modifier
+            .padding(start = 15.dp)
+            .clip(RoundedCornerShape(25))
+            .background(Color(0xFF673AB7))
+            .size(110.dp)
+    )
 }

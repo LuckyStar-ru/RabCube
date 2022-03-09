@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 
 data class DialogUiState(
     val _messages: MutableList<Message> = mutableStateListOf(
-        Message.System("Нажмите на кнопку для настройки приложения!", "Настройки")
+        Message.Assistant("Нажмите на кнопку для настройки приложения!")
     )
 ) {
 
@@ -28,7 +28,7 @@ class DialogViewModel : ViewModel() {
     }
 
     fun addAssistantMessage(message: String) {
-        uiState.addMessage(Message.System(message))
+        uiState.addMessage(Message.Assistant(message))
     }
 }
 
