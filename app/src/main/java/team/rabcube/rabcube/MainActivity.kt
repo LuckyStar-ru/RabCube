@@ -11,12 +11,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Slider
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -66,14 +69,28 @@ class MainActivity : ComponentActivity() {
                     padding = ShadowPadding(-25f),
                     offsetY = (-6).dp
                 )
-                .padding(top = 6.dp, bottom = 15.dp)
-                .clip(RoundedCornerShape(30))
+                .padding(top = 12.dp, bottom = 15.dp)
                 .background(Color(0xFF464646))
-                .border(
-                    2.dp,
-                    Brush.linearGradient(listOf(Color(0xFFC02BF7), Color(0xFF7317E3))),
-                    RoundedCornerShape(30)
-                )
+                .drawBehind {
+                    val strokeWidth = drawContext.size.width * density
+
+                    drawLine(
+                        Brush.linearGradient(listOf(Color(0xFFC02BF7), Color(0xFF7317E3))),
+                        start = Offset(size.height, 3f),
+                        end = Offset(size.height, 0f),
+                        strokeWidth
+                    )
+                }
+                .drawBehind {
+                    val strokeWidth = drawContext.size.width * density
+
+                    drawLine(
+                        Brush.linearGradient(listOf(Color(0xFFC02BF7), Color(0xFF7317E3))),
+                        start = Offset(size.height, size.height),
+                        end = Offset(size.height, size.height - 5f),
+                        strokeWidth
+                    )
+                }
         ) {
             ExitSlider()
             Text(
@@ -91,7 +108,7 @@ class MainActivity : ComponentActivity() {
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Аватарка",
                 modifier = Modifier
-                    .padding(start = 10.dp)
+                    .padding(start = 10.dp, top = 2.dp, bottom = 5.dp)
                     .clip(CircleShape)
                     .size(45.dp)
             )
@@ -100,20 +117,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun ExitSlider() {
-        // TODO: Implement new style
-        var sliderPosition by remember { mutableStateOf(1f) }
-        Slider(value = sliderPosition, valueRange = 0f..1f, steps = 0, onValueChange = {
-            sliderPosition = it
-        }, onValueChangeFinished = {
-            if (sliderPosition - 0.1f > 0f) {
-                sliderPosition = 1f
-            } else {
-                finishAndRemoveTask()
-            }
-        }, modifier = Modifier
-            .width(120.dp)
-            .padding(start = 20.dp)
-        )
+        // TODO: Implement Slider
+        Text(text = "Slider")
     }
 
     @Composable
@@ -141,7 +146,9 @@ class MainActivity : ComponentActivity() {
                     painter = painterResource(id = R.drawable.dialog),
                     contentDescription = "Диалог",
                     contentScale = ContentScale.FillBounds,
-                    modifier = Modifier.size(35.dp).absoluteOffset(y = (-10).dp)
+                    modifier = Modifier
+                        .size(35.dp)
+                        .absoluteOffset(y = (-10).dp)
                 )
             },
                 selected = (selectedIndex.value == 0),
@@ -154,7 +161,9 @@ class MainActivity : ComponentActivity() {
                     painter = painterResource(id = R.drawable.settings),
                     contentDescription = "Настройки",
                     contentScale = ContentScale.FillBounds,
-                    modifier = Modifier.size(25.dp).absoluteOffset(y = (-10).dp)
+                    modifier = Modifier
+                        .size(25.dp)
+                        .absoluteOffset(y = (-10).dp)
                 )
             },
                 selected = (selectedIndex.value == 1),
